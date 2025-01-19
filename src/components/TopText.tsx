@@ -22,8 +22,6 @@ const TopText = ({ filters,setFilters }: any) => {
         sendMessage({ anyValue: filters, type: 'topText' });
     };    
 
-    console.log(filters);
-
     return (
         <div className="apply-effects">
             <label htmlFor="topText">Top Text</label>

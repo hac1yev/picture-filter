@@ -21,7 +21,7 @@ const ApplyEffects = () => {
             </div>
             <LoadImage filters={filters} setFilters={setFilters} />
             <TopText filters={filters} setFilters={setFilters} />
-            <BlurFilter />
+            <BlurFilter filters={filters} setFilters={setFilters} />
             <EdgeDetection filters={filters} setFilters={setFilters} />
         </div>
     );
