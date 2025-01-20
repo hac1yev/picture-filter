@@ -10,16 +10,22 @@ const EdgeDetection = ({ filters,setFilters }: any) => {
             const canvas = document.getElementById("generated-image") as HTMLCanvasElement;
             drawImageBitmap(imageBitmap, canvas);
             setFilters((prev: any) => {
-                return {
+                return [
                     ...prev, 
-                    latestBitmap: imageBitmap
-                }
+                    {
+                        ...prev.at(-1),
+                        latestBitmap: imageBitmap,
+                        edge: true,
+                    }
+                ]
             });
         })();   
     });
 
     const handleEdgeDetection = () => {
-        sendMessage({ anyValue: filters, type: 'edgeDetection' });
+        sendMessage({ anyValue: {
+            latestBitmap: filters.at(-1).latestBitmap,
+        }, type: 'edgeDetection' });
     };
 
     return (

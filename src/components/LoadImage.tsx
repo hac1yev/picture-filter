@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { createBackgroundProcess } from "../main/channel";
 import { drawImageBitmap } from "../utils/canvas";
 
 const LoadImage = ({ filters,setFilters }: any) => {
     const { addMessageListener, sendMessage } = createBackgroundProcess();
+    const [link,setLink] = useState("");
 
     addMessageListener((responseFromBackground: any) => {
         (async function() {        
@@ -10,27 +12,30 @@ const LoadImage = ({ filters,setFilters }: any) => {
             const canvas = document.getElementById("generated-image") as HTMLCanvasElement;            
             drawImageBitmap(imageBitmap, canvas);
             setFilters((prev: any) => {
-                return {
+                return [
                     ...prev, 
-                    latestBitmap: imageBitmap
-                }
+                    {
+                        ...prev.at(-1),
+                        latestBitmap: imageBitmap,
+                        link
+                    }
+                ]
             });
         })();    
     });
 
     const handleGenerateImage = () => {
-        sendMessage({ anyValue: filters, type: 'loadImage' });
+        sendMessage({ anyValue: {
+            latestBitmap: filters.at(-1).latestBitmap,
+            link
+        }, type: 'loadImage' });
+        setLink("");
     };
 
     return (
         <div className="apply-effects">
             <label htmlFor="loadImage">Image URL</label>
-            <input value={filters.link} onChange={(e) => setFilters((prev: any) => {
-                return {
-                    ...prev,
-                    link: e.target.value
-                }
-            })} type="url" id="loadImage" />
+            <input value={link} onChange={(e) => setLink(e.target.value)} type="url" id="loadImage" />
             <button onClick={handleGenerateImage}>Load</button>
         </div>
     );
