@@ -25,7 +25,9 @@ mainProcess.addMessageListener(async (data) => {
             let imageWithEdgeDetection = await applyEdgeDetectionToImage(originalImageBitmap);
             mainProcess.sendMessage(imageWithEdgeDetection);
             break;
-        case 'blur':
+        case 'blur':            
+        console.log(anyValue.blur);
+        
             let imageWithBlur = await applyBlurToImage(originalImageBitmap, anyValue.blur);
             mainProcess.sendMessage(imageWithBlur);
             break;

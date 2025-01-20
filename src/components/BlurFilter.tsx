@@ -27,11 +27,11 @@ const BlurFilter = ({ filters,setFilters }: any) => {
         setFilters((prev: any) => {
             return {
                 ...prev,
-                blur: e.target.value
+                blur: Math.trunc(parseInt(e.target.value) / 10)
             }
         });
     };
-
+    
     return (
         <div className="apply-effects">
             <label htmlFor="blurFilter">Blur filter</label>
