@@ -25,7 +25,6 @@ const ApplyEffects = () => {
         })();   
     });
     
-
     const handleUndo = () => {
         if(steps === -1) {            
             const latestBitmap = filters.at(-2)?.latestBitmap;            
